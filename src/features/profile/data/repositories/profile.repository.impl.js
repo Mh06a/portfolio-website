@@ -1,17 +1,16 @@
 import { ProfileRepository } from "../../domain/repositories/profile.repository.js";
 import { Profile } from "../../domain/models/profile.model.js";
-import { SupabaseProfileDataSource } from "../datasources/supabase-profile.datasource.js";
 
 export class ProfileRepositoryImpl extends ProfileRepository {
-    constructor() {
+    constructor(dataSource) {
         super();
-        this.dataSource = new SupabaseProfileDataSource();
+        this.dataSource = dataSource;
     }
 
     async getProfile() {
         const data = await this.dataSource.getProfile();
 
-        return new Profile(data);
+        return data ? new Profile(data) : null;
     }
 
     async updateProfile(profile) {

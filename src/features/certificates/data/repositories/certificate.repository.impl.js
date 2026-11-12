@@ -1,11 +1,10 @@
 import { CertificateRepository } from "../../domain/repositories/certificate.repository.js";
 import { Certificate } from "../../domain/models/certificate.model.js";
-import { SupabaseCertificateDataSource } from "../datasources/supabase-certificate.datasource.js";
 
 export class CertificateRepositoryImpl extends CertificateRepository {
-    constructor() {
+    constructor(dataSource) {
         super();
-        this.dataSource = new SupabaseCertificateDataSource();
+        this.dataSource = dataSource;
     }
 
     async getAll() {

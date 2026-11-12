@@ -1,11 +1,10 @@
 import { SkillRepository } from "../../domain/repositories/skill.repository.js";
 import { Skill } from "../../domain/models/skill.model.js";
-import { SupabaseSkillDataSource } from "../datasources/supabase-skill.datasource.js";
 
 export class SkillRepositoryImpl extends SkillRepository {
-    constructor() {
+    constructor(dataSource) {
         super();
-        this.dataSource = new SupabaseSkillDataSource();
+        this.dataSource = dataSource;
     }
 
     async getAll() {

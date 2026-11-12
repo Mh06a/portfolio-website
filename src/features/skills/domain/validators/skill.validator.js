@@ -1,8 +1,9 @@
-import { isRequired } from "../../../core/utils/validation.util.js";
+import { SKILL_CATEGORIES } from "../skill-categories.js";
+import { isRequired } from "../../../../core/utils/validation.util.js";
 
-const SKILL_CATEGORIES = ["TECHNICAL", "SOFT"];
+export { SKILL_CATEGORIES };
 
-const PROFICIENCY_LEVELS = [
+export const PROFICIENCY_LEVELS = [
     "BEGINNER",
     "INTERMEDIATE",
     "ADVANCED",

@@ -1,3 +1,4 @@
+import { ValidationError } from "../../../../core/errors/app.error.js";
 import { validateEducation } from "../validators/education.validator.js";
 
 export class UpdateEducationUseCase {
@@ -13,7 +14,7 @@ export class UpdateEducationUseCase {
         const validation = validateEducation(education);
 
         if (!validation.isValid) {
-            throw new Error(JSON.stringify(validation.errors));
+            throw new ValidationError(validation.errors);
         }
 
         return await this.educationRepository.update(id, education);

@@ -1,8 +1,9 @@
 import {
+    humanizeField,
     isRequired,
     isValidEmail,
     isValidUrl,
-} from "../../../core/utils/validation.util.js";
+} from "../../../../core/utils/validation.util.js";
 
 export function validateProfile(profile) {
     const errors = {};
@@ -20,7 +21,7 @@ export function validateProfile(profile) {
 
     for (const field of requiredFields) {
         if (!isRequired(profile[field])) {
-            errors[field] = `${field} is required`;
+            errors[field] = `${humanizeField(field)} is required`;
         }
     }
 

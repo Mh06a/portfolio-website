@@ -6,6 +6,7 @@ export class Certificate {
         issue_date = null,
         certificate_url = null,
         certificate_file_path = null,
+        certificate_image_path = null,
         display_order = 0,
         created_at = null,
         updated_at = null,
@@ -16,6 +17,7 @@ export class Certificate {
         this.issue_date = issue_date;
         this.certificate_url = certificate_url;
         this.certificate_file_path = certificate_file_path;
+        this.certificate_image_path = certificate_image_path;
         this.display_order = display_order;
         this.created_at = created_at;
         this.updated_at = updated_at;

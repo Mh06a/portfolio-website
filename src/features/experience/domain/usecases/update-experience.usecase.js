@@ -1,3 +1,4 @@
+import { ValidationError } from "../../../../core/errors/app.error.js";
 import { validateExperience } from "../validators/experience.validator.js";
 
 export class UpdateExperienceUseCase {
@@ -13,7 +14,7 @@ export class UpdateExperienceUseCase {
         const validation = validateExperience(experience);
 
         if (!validation.isValid) {
-            throw new Error(JSON.stringify(validation.errors));
+            throw new ValidationError(validation.errors);
         }
 
         return await this.experienceRepository.update(id, experience);

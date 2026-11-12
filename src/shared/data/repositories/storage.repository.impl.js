@@ -1,10 +1,9 @@
 import { StorageRepository } from "../../domain/repositories/storage.repository.js";
-import { SupabaseStorageDataSource } from "../datasources/supabase-storage.datasource.js";
 
 export class StorageRepositoryImpl extends StorageRepository {
-    constructor() {
+    constructor(dataSource) {
         super();
-        this.dataSource = new SupabaseStorageDataSource();
+        this.dataSource = dataSource;
     }
 
     async uploadFile(path, file) {

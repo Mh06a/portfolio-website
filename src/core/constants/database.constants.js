@@ -10,3 +10,9 @@ export const TABLES = Object.freeze({
     PROJECT_TECHNOLOGIES: "project_technologies",
     CERTIFICATES: "certificates",
 });
+/** Column names of `education_subjects` (see the SQL schema). */
+export const EDUCATION_SUBJECT_COLUMNS = Object.freeze({
+    educationId: "education_id",
+    name: "subject_name",
+    displayOrder: "display_order",
+});

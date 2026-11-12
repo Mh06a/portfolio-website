@@ -1,3 +1,4 @@
+import { ValidationError } from "../../../../core/errors/app.error.js";
 import { validateSkill } from "../validators/skill.validator.js";
 
 export class CreateSkillUseCase {
@@ -9,7 +10,7 @@ export class CreateSkillUseCase {
         const validation = validateSkill(skill);
 
         if (!validation.isValid) {
-            throw new Error(JSON.stringify(validation.errors));
+            throw new ValidationError(validation.errors);
         }
 
         return await this.skillRepository.create(skill);

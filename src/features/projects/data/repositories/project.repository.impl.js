@@ -1,11 +1,10 @@
 import { ProjectRepository } from "../../domain/repositories/project.repository.js";
 import { Project } from "../../domain/models/project.model.js";
-import { SupabaseProjectDataSource } from "../datasources/supabase-project.datasource.js";
 
 export class ProjectRepositoryImpl extends ProjectRepository {
-    constructor() {
+    constructor(dataSource) {
         super();
-        this.dataSource = new SupabaseProjectDataSource();
+        this.dataSource = dataSource;
     }
 
     async getAll() {
@@ -18,6 +17,10 @@ export class ProjectRepositoryImpl extends ProjectRepository {
         const data = await this.dataSource.getById(id);
 
         return new Project(data);
+    }
+
+    async getTechnologies() {
+        return await this.dataSource.getTechnologies();
     }
 
     async create(project) {

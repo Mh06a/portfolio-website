@@ -1,10 +1,9 @@
 import { AuthRepository } from "../../domain/repositories/auth.repository.js";
-import { SupabaseAuthDataSource } from "../datasources/supabase-auth.datasource.js";
 
 export class AuthRepositoryImpl extends AuthRepository {
-    constructor() {
+    constructor(dataSource) {
         super();
-        this.dataSource = new SupabaseAuthDataSource();
+        this.dataSource = dataSource;
     }
 
     async signIn(email, password) {

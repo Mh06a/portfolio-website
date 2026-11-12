@@ -6,3 +6,13 @@ export class AppError extends Error {
         this.code = code;
     }
 }
+
+/** Thrown by use cases when entity validation fails. `errors` is a { field: message } map. */
+export class ValidationError extends AppError {
+    constructor(errors) {
+        super("Validation failed", "VALIDATION_ERROR");
+
+        this.name = "ValidationError";
+        this.errors = errors;
+    }
+}

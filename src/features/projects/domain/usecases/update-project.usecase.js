@@ -1,3 +1,4 @@
+import { ValidationError } from "../../../../core/errors/app.error.js";
 import { validateProject } from "../validators/project.validator.js";
 
 export class UpdateProjectUseCase {
@@ -13,7 +14,7 @@ export class UpdateProjectUseCase {
         const validation = validateProject(project);
 
         if (!validation.isValid) {
-            throw new Error(JSON.stringify(validation.errors));
+            throw new ValidationError(validation.errors);
         }
 
         return await this.projectRepository.update(id, project);

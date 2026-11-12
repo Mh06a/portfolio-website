@@ -1,3 +1,4 @@
+import { ValidationError } from "../../../../core/errors/app.error.js";
 import { validateProfile } from "../validators/profile.validator.js";
 
 export class UpdateProfileUseCase {
@@ -9,7 +10,7 @@ export class UpdateProfileUseCase {
         const validation = validateProfile(profile);
 
         if (!validation.isValid) {
-            throw new Error(JSON.stringify(validation.errors));
+            throw new ValidationError(validation.errors);
         }
 
         return await this.profileRepository.updateProfile(profile);

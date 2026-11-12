@@ -1,4 +1,5 @@
-import { supabase } from "../../../config/supabase/supabase-client.js";
+import { supabase } from "../../../../config/supabase/supabase-client.js";
+import { TABLES } from "../../../../core/constants/database.constants.js";
 
 export class SupabaseAuthDataSource {
     async signIn(email, password) {
@@ -25,7 +26,7 @@ export class SupabaseAuthDataSource {
 
     async getAdminByUserId(userId) {
         const { data, error } = await supabase
-            .from("admins")
+            .from(TABLES.ADMINS)
             .select("auth_user_id")
             .eq("auth_user_id", userId)
             .maybeSingle();

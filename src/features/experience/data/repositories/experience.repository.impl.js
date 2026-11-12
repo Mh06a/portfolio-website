@@ -1,11 +1,10 @@
 import { ExperienceRepository } from "../../domain/repositories/experience.repository.js";
 import { Experience } from "../../domain/models/experience.model.js";
-import { SupabaseExperienceDataSource } from "../datasources/supabase-experience.datasource.js";
 
 export class ExperienceRepositoryImpl extends ExperienceRepository {
-    constructor() {
+    constructor(dataSource) {
         super();
-        this.dataSource = new SupabaseExperienceDataSource();
+        this.dataSource = dataSource;
     }
 
     async getAll() {

@@ -1,9 +1,10 @@
 import {
+    humanizeField,
     isRequired,
     isValidUrl,
-} from "../../../core/utils/validation.util.js";
+} from "../../../../core/utils/validation.util.js";
 
-import { isValidDate } from "../../../core/utils/date.util.js";
+import { isValidDate } from "../../../../core/utils/date.util.js";
 
 export function validateProject(project) {
     const errors = {};
@@ -11,12 +12,11 @@ export function validateProject(project) {
     const requiredFields = [
         "name",
         "description",
-        "image_path",
     ];
 
     for (const field of requiredFields) {
         if (!isRequired(project[field])) {
-            errors[field] = `${field} is required`;
+            errors[field] = `${humanizeField(field)} is required`;
         }
     }
 

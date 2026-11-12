@@ -1,8 +1,11 @@
-import { isRequired } from "../../../core/utils/validation.util.js";
+import {
+    humanizeField,
+    isRequired,
+} from "../../../../core/utils/validation.util.js";
 import {
     isValidDate,
     isDateRangeValid,
-} from "../../../core/utils/date.util.js";
+} from "../../../../core/utils/date.util.js";
 
 export function validateEducation(education) {
     const errors = {};
@@ -18,7 +21,7 @@ export function validateEducation(education) {
 
     for (const field of requiredFields) {
         if (!isRequired(education[field])) {
-            errors[field] = `${field} is required`;
+            errors[field] = `${humanizeField(field)} is required`;
         }
     }
 
@@ -54,6 +57,14 @@ export function validateEducation(education) {
         if (!Number.isFinite(gpa) || gpa < 0 || gpa > 5) {
             errors.gpa = "GPA must be between 0 and 5";
         }
+    }
+
+    if (
+        education.subjects !== undefined &&
+        (!Array.isArray(education.subjects) ||
+            education.subjects.some(item => typeof item !== "string" || !item.trim()))
+    ) {
+        errors.subjects = "Subjects must be a list of names";
     }
 
     if (

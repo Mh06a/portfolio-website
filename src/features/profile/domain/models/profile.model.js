@@ -10,8 +10,8 @@ export class Profile {
         phone = null,
         github_url = null,
         linkedin_url = null,
-        profile_image_path,
-        cv_file_path,
+        profile_image_path = null,
+        cv_file_path = null,
         created_at = null,
         updated_at = null,
     }) {

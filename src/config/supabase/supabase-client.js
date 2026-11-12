@@ -1,9 +1,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.119.0";
-
-const SUPABASE_URL = "https://adcarinkypuhatigarfk.supabase.co/rest/v1/";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_UrJB8CJ_tzBWtCZVC7ULUg_X1au3FL0";
+import { APP_CONFIG } from "../app.config.js";
 
 export const supabase = createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
+    APP_CONFIG.supabase.url,
+    APP_CONFIG.supabase.publishableKey
 );

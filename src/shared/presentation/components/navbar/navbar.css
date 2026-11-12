@@ -1,0 +1,119 @@
+.navbar {
+    height: 72px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(9, 11, 16, 0.96);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.navbar-container {
+    width: min(var(--container-width), calc(100% - 48px));
+    height: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-logo {
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.navbar-link {
+    color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    transition: color 0.2s;
+}
+
+.navbar-link:hover,
+.navbar-link.active {
+    color: var(--color-accent);
+}
+
+.navbar-cv {
+    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    padding: 10px 16px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    transition: 0.2s;
+}
+
+.navbar-cv:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+.navbar-cv span {
+    margin-left: 8px;
+}
+
+.navbar-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.navbar-toggle span {
+    display: block;
+    width: 23px;
+    height: 2px;
+    margin: 5px;
+    background: var(--color-text);
+    transition: 0.2s;
+}
+
+@media (max-width: 850px) {
+    .navbar-menu {
+        gap: 12px;
+    }
+
+    .navbar-link {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 700px) {
+    .navbar-container {
+        width: calc(100% - 32px);
+    }
+
+    .navbar-toggle {
+        display: block;
+        order: 3;
+    }
+
+    .navbar-cv {
+        margin-left: auto;
+        margin-right: 16px;
+    }
+
+    .navbar-menu {
+        display: none;
+        position: absolute;
+        top: 72px;
+        left: 0;
+        width: 100%;
+        padding: 20px 24px;
+        background: var(--color-section);
+        border-bottom: 1px solid var(--color-border);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+    }
+
+    .navbar-menu.is-open {
+        display: flex;
+    }
+}

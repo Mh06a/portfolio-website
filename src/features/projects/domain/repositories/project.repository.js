@@ -7,6 +7,10 @@ export class ProjectRepository {
         throw new Error("Method not implemented");
     }
 
+    async getTechnologies() {
+        throw new Error("Method not implemented");
+    }
+
     async create(project) {
         throw new Error("Method not implemented");
     }

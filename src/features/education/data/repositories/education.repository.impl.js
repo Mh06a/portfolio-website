@@ -1,11 +1,10 @@
 import { EducationRepository } from "../../domain/repositories/education.repository.js";
 import { Education } from "../../domain/models/education.model.js";
-import { SupabaseEducationDataSource } from "../datasources/supabase-education.datasource.js";
 
 export class EducationRepositoryImpl extends EducationRepository {
-    constructor() {
+    constructor(dataSource) {
         super();
-        this.dataSource = new SupabaseEducationDataSource();
+        this.dataSource = dataSource;
     }
 
     async getAll() {

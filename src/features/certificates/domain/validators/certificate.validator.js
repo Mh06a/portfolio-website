@@ -1,9 +1,9 @@
 import {
     isRequired,
     isValidUrl,
-} from "../../../core/utils/validation.util.js";
+} from "../../../../core/utils/validation.util.js";
 
-import { isValidDate } from "../../../core/utils/date.util.js";
+import { isValidDate } from "../../../../core/utils/date.util.js";
 
 export function validateCertificate(certificate) {
     const errors = {};
@@ -16,10 +16,9 @@ export function validateCertificate(certificate) {
         errors.issuing_organization = "Issuing organization is required";
     }
 
-    if (
-        certificate.issue_date &&
-        !isValidDate(certificate.issue_date)
-    ) {
+    if (!isRequired(certificate.issue_date)) {
+        errors.issue_date = "Issue date is required";
+    } else if (!isValidDate(certificate.issue_date)) {
         errors.issue_date = "Invalid issue date";
     }
 

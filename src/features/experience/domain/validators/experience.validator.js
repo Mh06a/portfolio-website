@@ -1,10 +1,13 @@
-import { isRequired } from "../../../core/utils/validation.util.js";
+import {
+    humanizeField,
+    isRequired,
+} from "../../../../core/utils/validation.util.js";
 import {
     isValidDate,
     isDateRangeValid,
-} from "../../../core/utils/date.util.js";
+} from "../../../../core/utils/date.util.js";
 
-const EMPLOYMENT_TYPES = [
+export const EMPLOYMENT_TYPES = [
     "Internship",
     "Full-time",
     "Part-time",
@@ -24,7 +27,7 @@ export function validateExperience(experience) {
 
     for (const field of requiredFields) {
         if (!isRequired(experience[field])) {
-            errors[field] = `${field} is required`;
+            errors[field] = `${humanizeField(field)} is required`;
         }
     }
 

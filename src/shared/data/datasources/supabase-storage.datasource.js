@@ -1,8 +1,9 @@
 import { supabase } from "../../../config/supabase/supabase-client.js";
+import { APP_CONFIG } from "../../../config/app.config.js";
 
 export class SupabaseStorageDataSource {
-    constructor() {
-        this.bucket = "portfolio-assets";
+    constructor(bucket = APP_CONFIG.supabase.storageBucket) {
+        this.bucket = bucket;
     }
 
     async upload(path, file) {
