@@ -1,17 +1,19 @@
 import { html } from "../../../../shared/presentation/utils/html.util.js";
 import { renderEmptyNote } from "../../../../shared/presentation/components/empty-note/empty-note.js";
+import { renderSectionAside } from "../../../../shared/presentation/components/section-header/section-header.js";
 
 function renderGroup(group) {
     return html`
         <article class="skill-card">
 
-            <span class="skill-number">${group.number} / SKILLS</span>
-
-            <h3>${group.category}</h3>
-
-            <div class="skill-tags">
-                ${group.skills.map(skill => html`<span>${skill}</span>`)}
+            <div class="skill-head">
+                <span class="skill-number">${group.number}</span>
+                <h3>${group.category}</h3>
             </div>
+
+            <ul class="skill-tags">
+                ${group.skills.map(skill => html`<li>${skill}</li>`)}
+            </ul>
 
         </article>
     `;
@@ -20,14 +22,15 @@ function renderGroup(group) {
 export function renderSkills(groups) {
     return html`
         <section class="section skills" id="skills">
-            <div class="container">
+            <div class="container section-grid">
 
-                <span class="section-label">04 / TECHNOLOGIES & TOOLS</span>
-                <h2 class="section-title">Skills</h2>
+                ${renderSectionAside({ index: "04", label: "Technologies & tools", title: "Skills" })}
 
-                ${groups.length === 0
-                    ? renderEmptyNote("No skills have been added yet.")
-                    : html`<div class="skills-grid">${groups.map(renderGroup)}</div>`}
+                <div class="section-main">
+                    ${groups.length === 0
+                        ? renderEmptyNote("No skills have been added yet.")
+                        : html`<div class="skills-list">${groups.map(renderGroup)}</div>`}
+                </div>
 
             </div>
         </section>

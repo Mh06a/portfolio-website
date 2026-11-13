@@ -65,4 +65,37 @@ export function initializeNavbar() {
     menu.querySelectorAll("a").forEach(link => {
         link.addEventListener("click", () => setOpen(false));
     });
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") setOpen(false);
+    });
+
+    highlightCurrentSection(menu);
+}
+
+/** UI behaviour only: mark the nav link of the section currently in view. */
+function highlightCurrentSection(menu) {
+    const links = [...menu.querySelectorAll(".navbar-link")];
+    const sections = links
+        .map(link => document.getElementById(link.getAttribute("href").slice(1)))
+        .filter(Boolean);
+
+    if (!("IntersectionObserver" in window) || sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+        entries => {
+            const visible = entries.filter(entry => entry.isIntersecting);
+            if (visible.length === 0) return;
+
+            const current = visible[visible.length - 1].target.id;
+
+            links.forEach(link =>
+                link.classList.toggle("active", link.getAttribute("href") === `#${current}`)
+            );
+        },
+        // a section counts as "current" while it crosses the middle band of the viewport
+        { rootMargin: "-45% 0px -50% 0px" }
+    );
+
+    sections.forEach(section => observer.observe(section));
 }

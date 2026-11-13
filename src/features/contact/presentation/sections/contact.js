@@ -1,19 +1,16 @@
 import { html } from "../../../../shared/presentation/utils/html.util.js";
 import { renderEmptyNote } from "../../../../shared/presentation/components/empty-note/empty-note.js";
 
-function renderCard(item) {
+function renderRow(item) {
     return html`
         <a
             href="${item.href}"
             class="contact-card"
             ${item.isExternal && html`target="_blank" rel="noopener noreferrer"`}
         >
-            <div class="contact-card-top">
-                <span>${item.label}</span>
-                <span class="contact-arrow">↗</span>
-            </div>
-
+            <span class="contact-label">${item.label}</span>
             <p>${item.value}</p>
+            <span class="contact-arrow">↗</span>
         </a>
     `;
 }
@@ -23,9 +20,10 @@ export function renderContact(items) {
         <section class="section contact" id="contact">
             <div class="container">
 
-                <span class="section-label">07 / START A CONVERSATION</span>
+                <span class="section-index" aria-hidden="true">07</span>
+                <span class="section-label">Start a conversation</span>
 
-                <h2 class="section-title contact-title">Let's Connect</h2>
+                <h2 class="section-title contact-title">Let's<br>Connect</h2>
 
                 <p class="contact-description">
                     Have an opportunity or a project in mind? Feel free to reach out.
@@ -33,7 +31,7 @@ export function renderContact(items) {
 
                 ${items.length === 0
                     ? renderEmptyNote("No contact details have been added yet.")
-                    : html`<div class="contact-grid">${items.map(renderCard)}</div>`}
+                    : html`<div class="contact-list">${items.map(renderRow)}</div>`}
 
             </div>
         </section>

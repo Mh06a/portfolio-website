@@ -1,9 +1,9 @@
 import { html } from "../../../../shared/presentation/utils/html.util.js";
 import { renderEmptyNote } from "../../../../shared/presentation/components/empty-note/empty-note.js";
 
-function renderProjectCard(project) {
+function renderProjectCard(project, { isLead = false } = {}) {
     return html`
-        <article class="project-card ${project.isFeatured ? "featured" : ""}">
+        <article class="project-card ${isLead ? "project-lead featured" : ""}">
 
             <div class="project-image-wrapper">
                 ${project.imageUrl && html`
@@ -29,21 +29,23 @@ function renderProjectCard(project) {
 
                 <p class="project-description">${project.description}</p>
 
-                <div class="project-technologies">
-                    ${project.technologies.map(technology => html`<span>${technology}</span>`)}
+                <ul class="project-technologies">
+                    ${project.technologies.map(technology => html`<li>${technology}</li>`)}
+                </ul>
+
+                <div class="project-links">
+                    ${project.githubUrl && html`
+                        <a href="${project.githubUrl}" class="text-link project-link" target="_blank" rel="noopener noreferrer">
+                            View GitHub ↗
+                        </a>
+                    `}
+
+                    ${project.demoUrl && html`
+                        <a href="${project.demoUrl}" class="text-link project-link" target="_blank" rel="noopener noreferrer">
+                            Live Demo ↗
+                        </a>
+                    `}
                 </div>
-
-                ${project.githubUrl && html`
-                    <a href="${project.githubUrl}" class="project-link" target="_blank" rel="noopener noreferrer">
-                        View GitHub ↗
-                    </a>
-                `}
-
-                ${project.demoUrl && html`
-                    <a href="${project.demoUrl}" class="project-link" target="_blank" rel="noopener noreferrer">
-                        Live Demo ↗
-                    </a>
-                `}
             </div>
 
         </article>
@@ -57,29 +59,39 @@ export function renderProjects(viewModel) {
 
                 <div class="projects-heading">
                     <div>
-                        <span class="section-label">05 / WHAT I'VE BUILT</span>
+                        <span class="section-index" aria-hidden="true">05</span>
+                        <span class="section-label">What I've built</span>
                         <h2 class="section-title">Selected Projects</h2>
+                    </div>
+
+                    <div class="projects-heading-side">
                         <p class="projects-subtitle">
                             Applications and systems built through practical learning.
                         </p>
-                    </div>
 
-                    ${viewModel.githubProfileUrl && html`
-                        <a
-                            href="${viewModel.githubProfileUrl}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="github-profile-link"
-                        >
-                            GITHUB PROFILE ↗
-                        </a>
-                    `}
+                        ${viewModel.githubProfileUrl && html`
+                            <a
+                                href="${viewModel.githubProfileUrl}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="btn-secondary github-profile-link"
+                            >
+                                GitHub profile <span>↗</span>
+                            </a>
+                        `}
+                    </div>
                 </div>
 
                 ${viewModel.items.length === 0
                     ? renderEmptyNote("No projects have been added yet.")
                     : html`
-                        <div class="projects-grid">${viewModel.items.map(renderProjectCard)}</div>
+                        ${renderProjectCard(viewModel.featured, { isLead: true })}
+
+                        ${viewModel.others.length > 0 && html`
+                            <div class="projects-grid">
+                                ${viewModel.others.map(project => renderProjectCard(project))}
+                            </div>
+                        `}
 
                         <p class="projects-note">
                             Several projects are illustrative previews, not production

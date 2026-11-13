@@ -1,97 +1,145 @@
 .experience {
-    background: var(--color-section);
-    border-bottom: 1px solid var(--color-border);
+    background: var(--color-bg);
 }
 
+/* timeline: dates on the left, a lime spine, the role on the right */
 .experience-list {
-    margin-top: 32px;
+    position: relative;
 }
 
 .experience-item {
+    position: relative;
     display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 24px;
-    align-items: stretch;
+    grid-template-columns: 170px minmax(0, 1fr);
+    gap: 0 56px;
+    padding-bottom: 56px;
+}
+
+.experience-item:last-child {
+    padding-bottom: 0;
+}
+
+.experience-item::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    bottom: -8px;
+    left: 170px;
+    margin-left: 27px;
+    width: 1px;
+    background: var(--color-border-strong);
+}
+
+.experience-item:last-child::before {
+    bottom: 40%;
+    background: linear-gradient(var(--color-border-strong), transparent);
+}
+
+.experience-item::after {
+    content: "";
+    position: absolute;
+    top: 8px;
+    left: 170px;
+    margin-left: 22px;
+    width: 11px;
+    height: 11px;
+    border: 2px solid var(--color-accent);
+    border-radius: 50%;
+    background: var(--color-bg);
 }
 
 .experience-meta {
-    padding-top: 8px;
+    color: var(--color-muted);
+    font-size: 13px;
+    line-height: 1.5;
 }
 
 .experience-date {
     display: block;
+    margin-bottom: 8px;
     color: var(--color-accent);
     font-family: var(--font-mono);
-    font-size: 10px;
-    margin-bottom: 12px;
-}
-
-.experience-meta p {
-    color: var(--color-muted);
     font-size: 11px;
-    margin-bottom: 5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
 .experience-card {
-    border-radius: var(--radius-md);
-    position: relative;
-    padding: 24px;
-    background: var(--color-card);
-    border: 1px solid var(--color-border);
-    border-left: 2px solid var(--color-accent);
+    padding-left: 16px;
+    min-width: 0;
 }
 
 .experience-type {
     display: inline-block;
-    color: var(--color-accent);
+    margin-bottom: 14px;
+    padding: 4px 12px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    color: var(--color-muted);
     font-family: var(--font-mono);
-    font-size: 9px;
-    margin-bottom: 10px;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
 }
 
 .experience-card h3 {
-    font-size: 21px;
-    margin-bottom: 4px;
+    font-size: clamp(24px, 2.6vw, 34px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
 }
 
 .experience-card h4 {
-    font-size: 13px;
+    margin-top: 6px;
+    color: var(--color-accent);
+    font-family: var(--font-main);
+    font-size: 16px;
     font-weight: 500;
-    margin-bottom: 16px;
+    letter-spacing: 0;
 }
 
 .experience-card ul {
-    list-style: none;
+    margin-top: 22px;
+    max-width: 62ch;
 }
 
 .experience-card li {
     position: relative;
-    padding-left: 16px;
+    padding-left: 22px;
     color: var(--color-muted);
-    font-size: 11px;
-    line-height: 1.8;
-    margin-bottom: 7px;
+    font-size: 15px;
+}
+
+.experience-card li + li {
+    margin-top: 10px;
 }
 
 .experience-card li::before {
-    content: "—";
+    content: "→";
     position: absolute;
     left: 0;
-    color: var(--color-accent);
+    color: var(--color-faint);
+    font-family: var(--font-mono);
 }
 
-@media (max-width: 650px) {
+@media (max-width: 720px) {
     .experience-item {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         gap: 14px;
+        padding-left: 28px;
+        padding-bottom: 44px;
     }
 
-    .experience-meta {
-        padding-top: 0;
+    .experience-item::before {
+        left: 4px;
+        margin-left: 0;
+    }
+
+    .experience-item::after {
+        left: 0;
+        margin-left: 0;
     }
 
     .experience-card {
-        padding: 20px;
+        padding-left: 0;
     }
 }

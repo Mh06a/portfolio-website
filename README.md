@@ -2,15 +2,23 @@
 
 Vanilla JavaScript (ES modules) + Supabase. No build step.
 
+## Design
+
+Editorial dark theme (`#090B10`), electric-lime accent (`#B6F36B`), Space Grotesk / Inter / DM Mono.
+Design tokens live in `src/styles/global.css` and are shared by the public site and the admin dashboard.
+The redesign only touches the presentation layer (views, presenters' view-model shape, CSS); use cases,
+repositories, validators and Supabase access are unchanged.
+
 ## Run
 
 ES modules are blocked on `file://`, so **do not double-click index.html**. Use a local server:
 
 ```bash
-npm start            # → http://localhost:5173
-# or: python3 -m http.server 5173
-# or: VS Code "Live Server"
+python3 -m http.server 5173     # → http://localhost:5173
+# or: VS Code "Live Server" extension (no install, no build)
 ```
+
+No Node.js, npm or bundler is used or required — only static files served as-is.
 
 ## Database
 

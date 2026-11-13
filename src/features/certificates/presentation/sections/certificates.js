@@ -1,11 +1,14 @@
 import { html } from "../../../../shared/presentation/utils/html.util.js";
 import { renderEmptyNote } from "../../../../shared/presentation/components/empty-note/empty-note.js";
+import { renderSectionAside } from "../../../../shared/presentation/components/section-header/section-header.js";
 
 function renderPicture(certificate) {
-    const image = html`<img src="${certificate.imageUrl}" alt="${certificate.name} certificate" loading="lazy">`;
+    const image = certificate.imageUrl
+        ? html`<img src="${certificate.imageUrl}" alt="${certificate.name} certificate" loading="lazy">`
+        : "";
 
     return certificate.url
-        ? html`<a class="certificate-thumb" href="${certificate.url}" target="_blank" rel="noopener noreferrer">${image}</a>`
+        ? html`<a class="certificate-thumb" href="${certificate.url}" target="_blank" rel="noopener noreferrer" aria-label="Open ${certificate.name}">${image}</a>`
         : html`<div class="certificate-thumb">${image}</div>`;
 }
 
@@ -13,21 +16,20 @@ function renderCertificate(certificate) {
     return html`
         <article class="certificate-card">
 
-            ${certificate.imageUrl && renderPicture(certificate)}
+            <span class="certificate-number">${certificate.number}</span>
+
+            ${renderPicture(certificate)}
 
             <div class="certificate-body">
-                <span class="certificate-number">${certificate.number} / CERTIFICATION</span>
-
                 <h3>${certificate.name}</h3>
-
                 <p>${certificate.organization}</p>
-
-                ${certificate.url && html`
-                    <a href="${certificate.url}" class="certificate-link" target="_blank" rel="noopener noreferrer">
-                        View certificate ↗
-                    </a>
-                `}
             </div>
+
+            ${certificate.url && html`
+                <a href="${certificate.url}" class="certificate-link" target="_blank" rel="noopener noreferrer">
+                    View <span>↗</span>
+                </a>
+            `}
 
         </article>
     `;
@@ -36,14 +38,15 @@ function renderCertificate(certificate) {
 export function renderCertificates(certificates) {
     return html`
         <section class="section certificates" id="certificates">
-            <div class="container">
+            <div class="container section-grid">
 
-                <span class="section-label">06 / CONTINUOUS LEARNING</span>
-                <h2 class="section-title">Certifications</h2>
+                ${renderSectionAside({ index: "06", label: "Continuous learning", title: "Certifications" })}
 
-                ${certificates.length === 0
-                    ? renderEmptyNote("No certificates have been added yet.")
-                    : html`<div class="certificates-grid">${certificates.map(renderCertificate)}</div>`}
+                <div class="section-main">
+                    ${certificates.length === 0
+                        ? renderEmptyNote("No certificates have been added yet.")
+                        : html`<div class="certificates-list">${certificates.map(renderCertificate)}</div>`}
+                </div>
 
             </div>
         </section>

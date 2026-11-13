@@ -1,42 +1,46 @@
 import { html } from "../../../../shared/presentation/utils/html.util.js";
 import { renderEmptyNote } from "../../../../shared/presentation/components/empty-note/empty-note.js";
+import { renderSectionAside } from "../../../../shared/presentation/components/section-header/section-header.js";
 
 function renderCard(education) {
     return html`
         <article class="education-card">
 
-            <div class="education-head">
+            <div class="education-when">
+                <span class="education-date">${education.dateLabel}</span>
+                <p class="education-period">${education.period}</p>
+            </div>
+
+            <div class="education-what">
+                <h3>${education.title}</h3>
+                <p class="education-institution">${education.institution}</p>
+
+                ${education.paragraphs.length > 0 && html`
+                    <div class="education-description">
+                        ${education.paragraphs.map(text => html`<p>${text}</p>`)}
+                    </div>
+                `}
+
+                ${education.subjects.length > 0 && html`
+                    <span class="education-skills-label">Relevant coursework</span>
+
+                    <ul class="education-tags">
+                        ${education.subjects.map(subject => html`<li>${subject}</li>`)}
+                    </ul>
+                `}
+            </div>
+
+            <div class="education-side">
                 <div class="education-logo">
                     ${education.logoUrl && html`
                         <img src="${education.logoUrl}" alt="${education.institution} logo" loading="lazy">
                     `}
                 </div>
 
-                <div>
-                    <span class="education-date">${education.dateLabel}</span>
-                    <p class="education-institution">${education.institution}</p>
-                </div>
+                ${education.gpa !== null && html`
+                    <span class="education-gpa">GPA ${education.gpa} / 5</span>
+                `}
             </div>
-
-            <h3>${education.title}</h3>
-
-            <p class="education-period">
-                ${education.period}${education.gpa !== null && html` · GPA ${education.gpa} / 5`}
-            </p>
-
-            ${education.paragraphs.length > 0 && html`
-                <div class="education-description">
-                    ${education.paragraphs.map(text => html`<p>${text}</p>`)}
-                </div>
-            `}
-
-            ${education.subjects.length > 0 && html`
-                <span class="education-skills-label">RELEVANT COURSEWORK</span>
-
-                <div class="education-tags">
-                    ${education.subjects.map(subject => html`<span>${subject}</span>`)}
-                </div>
-            `}
 
         </article>
     `;
@@ -45,14 +49,15 @@ function renderCard(education) {
 export function renderEducation(items) {
     return html`
         <section class="section education" id="education">
-            <div class="container">
+            <div class="container section-grid">
 
-                <span class="section-label">02 / ACADEMIC BACKGROUND</span>
-                <h2 class="section-title">Education</h2>
+                ${renderSectionAside({ index: "02", label: "Academic background", title: "Education" })}
 
-                ${items.length === 0
-                    ? renderEmptyNote("No education has been added yet.")
-                    : html`<div class="education-grid">${items.map(renderCard)}</div>`}
+                <div class="section-main">
+                    ${items.length === 0
+                        ? renderEmptyNote("No education has been added yet.")
+                        : html`<div class="education-list">${items.map(renderCard)}</div>`}
+                </div>
 
             </div>
         </section>

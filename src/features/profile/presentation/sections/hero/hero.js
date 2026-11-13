@@ -21,43 +21,47 @@ export function renderHero(viewModel) {
                 <div class="hero-content">
 
                     <div class="hero-info">
-                        <span class="section-label">SOFTWARE DEVELOPER / PORTFOLIO</span>
+                        <span class="section-label">Software Developer / Portfolio</span>
 
                         <h1>
-                            ${viewModel.firstName}<br>
-                            ${viewModel.lastName}
+                            <span class="hero-first">${viewModel.firstName}</span>
+                            <span class="hero-last">${viewModel.lastName}</span>
                         </h1>
 
                         <h2>${viewModel.jobTitle}</h2>
 
-                        <p class="hero-description">${viewModel.description}</p>
+                        <div class="hero-lower">
+                            <p class="hero-description">${viewModel.description}</p>
 
-                        <p class="hero-tagline">
-                            Building practical software solutions, one application at a time.
-                        </p>
+                            <p class="hero-tagline">
+                                Building practical software solutions, one application at a time.
+                            </p>
 
-                        <div class="hero-actions">
-                            <a href="#projects" class="btn-primary">
-                                Explore My Work <span>↗</span>
-                            </a>
-
-                            ${viewModel.cvUrl && html`
-                                <a href="${viewModel.cvUrl}" class="btn-secondary" download>
-                                    Download CV <span>↓</span>
+                            <div class="hero-actions">
+                                <a href="#projects" class="btn-primary">
+                                    Explore My Work <span>↗</span>
                                 </a>
+
+                                ${viewModel.cvUrl && html`
+                                    <a href="${viewModel.cvUrl}" class="btn-secondary" download>
+                                        Download CV <span>↓</span>
+                                    </a>
+                                `}
+                            </div>
+
+                            ${viewModel.socials.length > 0 && html`
+                                <div class="hero-socials">
+                                    ${viewModel.socials.map(link => html`
+                                        <a href="${link.href}" target="_blank" rel="noopener noreferrer">
+                                            ${link.label} ↗
+                                        </a>
+                                    `)}
+                                </div>
                             `}
-                        </div>
-
-                        <div class="hero-socials">
-                            ${viewModel.socials.map(link => html`
-                                <a href="${link.href}" target="_blank" rel="noopener noreferrer">
-                                    ${link.label} ↗
-                                </a>
-                            `)}
                         </div>
                     </div>
 
-                    <div class="hero-image-wrapper">
+                    <figure class="hero-image-wrapper">
                         ${viewModel.imageUrl && html`
                             <img
                                 src="${viewModel.imageUrl}"
@@ -65,13 +69,13 @@ export function renderHero(viewModel) {
                                 class="hero-image"
                             >
                         `}
-                    </div>
+                    </figure>
 
                 </div>
 
                 <div class="hero-bottom">
-                    <span>FLUTTER / .NET MAUI / SWIFT / KOTLIN</span>
-                    <a href="#about">SCROLL TO EXPLORE ↓</a>
+                    <span>Flutter / .NET MAUI / Swift / Kotlin</span>
+                    <a href="#about">Scroll to explore ↓</a>
                 </div>
 
             </div>

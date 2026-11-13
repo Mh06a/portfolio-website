@@ -1,68 +1,73 @@
 .skills {
-    background: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
+    background: var(--color-section);
 }
 
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-top: 32px;
+/* an index, not a card wall: one ruled row per group */
+.skills-list {
+    border-top: 1px solid var(--color-border);
 }
 
 .skill-card {
-    border-radius: var(--radius-md);
-    min-height: 145px;
-    padding: 20px;
-    background: var(--color-card);
-    border: 1px solid var(--color-border);
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 24px 40px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--color-border);
+    transition: background 0.25s, padding 0.25s;
+}
+
+.skill-card:hover {
+    background: linear-gradient(90deg, var(--color-accent-soft), transparent 70%);
+    padding-left: 14px;
+}
+
+.skill-head {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
 }
 
 .skill-number {
-    display: block;
-    color: var(--color-accent);
+    color: var(--color-faint);
     font-family: var(--font-mono);
-    font-size: 9px;
-    margin-bottom: 12px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
 }
 
 .skill-card h3 {
-    font-size: 14px;
-    margin-bottom: 14px;
+    font-size: clamp(19px, 1.8vw, 24px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
 }
 
 .skill-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 7px;
+    gap: 8px 8px;
+    align-content: flex-start;
 }
 
-.skill-tags span {
-    border-radius: var(--radius-sm);
-    padding: 6px 9px;
-    color: var(--color-muted);
-    background: var(--color-section);
-    border: 1px solid var(--color-border);
+.skill-tags li {
+    padding: 6px 14px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    color: var(--color-text);
     font-family: var(--font-mono);
-    font-size: 9px;
+    font-size: 12.5px;
+    transition: border-color 0.2s, color 0.2s;
 }
 
-.skill-card:last-child {
-    grid-column: 1 / -1;
+.skill-card:hover .skill-tags li {
+    border-color: var(--color-accent-line);
 }
 
-@media (max-width: 850px) {
-    .skills-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 520px) {
-    .skills-grid {
+@media (max-width: 720px) {
+    .skill-card {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
 
-    .skill-card:last-child {
-        grid-column: auto;
+    .skill-card:hover {
+        padding-left: 0;
     }
 }

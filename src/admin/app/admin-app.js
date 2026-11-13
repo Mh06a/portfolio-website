@@ -87,6 +87,10 @@ export class AdminApp {
         const sidebar = document.querySelector("#sidebar");
 
         document.querySelector("#menu-button").addEventListener("click", () => sidebar.classList.toggle("is-open"));
+        const shell = document.querySelector(".admin-shell");
+        shell.addEventListener("click", event => {
+            if (event.target === shell) sidebar.classList.remove("is-open");
+        });
         sidebar.addEventListener("click", event => {
             if (event.target.closest("a")) sidebar.classList.remove("is-open");
         });

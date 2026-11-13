@@ -4,12 +4,15 @@ import { BRAND_NAME } from "../../../../core/constants/app.constants.js";
 export function renderLogin() {
     return html`
         <div class="login-page">
-            <strong class="login-brand">${BRAND_NAME}</strong>
+            <header class="login-top">
+                <strong class="login-brand">${BRAND_NAME}</strong>
+                <a class="link" href="./index.html">← Back to website</a>
+            </header>
 
             <div class="login-grid">
                 <div class="login-intro">
-                    <span class="eyebrow">THE DATA BEHIND THE SITE</span>
-                    <h1>Build. Refine.<br>Make it yours.</h1>
+                    <span class="eyebrow">The data behind the site</span>
+                    <h1>Build.<br>Refine.<br><em>Make it yours.</em></h1>
                     <p>A focused workspace for the stories, skills, and applications that make up your portfolio.</p>
                     <ul class="login-list">
                         <li><span>01</span> Profile &amp; background</li>
@@ -19,7 +22,7 @@ export function renderLogin() {
                 </div>
 
                 <form class="card login-card" id="login-form" novalidate>
-                    <span class="eyebrow">ADMIN ACCESS</span>
+                    <span class="eyebrow">Admin access</span>
                     <h2>Welcome back</h2>
                     <p class="card-hint">Sign in to manage your portfolio.</p>
 
@@ -40,8 +43,6 @@ export function renderLogin() {
                     <p class="field-hint">This sign-in is for the site owner only.</p>
                 </form>
             </div>
-
-            <a class="link" href="./index.html">← Back to website</a>
         </div>
     `;
 }

@@ -18,12 +18,18 @@ export function presentOverview({ projects, skills, experiences, certificates, e
         .slice(0, 4)
         .map(update => ({ ...update, dateLabel: formatDay(update.at) }));
 
+    const skillGroups = new Set(skills.map(item => item.category)).size;
+    const featured = projects.filter(item => item.is_featured).length;
+    const current = experiences.filter(item => item.is_current).length;
+    const issuers = new Set(certificates.map(item => item.issuing_organization)).size;
+
     return {
         stats: [
-            { label: "Total Projects", value: pad(projects.length) },
-            { label: "Total Skills", value: pad(skills.length) },
-            { label: "Total Experience", value: pad(experiences.length) },
-            { label: "Total Certificates", value: pad(certificates.length) },
+            { label: "Projects", value: pad(projects.length), hint: `${featured} featured` },
+            { label: "Skills", value: pad(skills.length), hint: `${skillGroups} ${skillGroups === 1 ? "group" : "groups"}` },
+            { label: "Experience", value: pad(experiences.length), hint: `${current} current` },
+            { label: "Certificates", value: pad(certificates.length), hint: `${issuers} ${issuers === 1 ? "issuer" : "issuers"}` },
+            { label: "Education", value: pad(education.length), hint: "academic records" },
         ],
         updates,
     };

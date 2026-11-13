@@ -86,7 +86,7 @@ export function renderEducationForm(viewModel) {
                     })}
                     ${textareaField({
                         label: "Description", name: "description", value: values.description, required: true, rows: 4,
-                        hint: "One paragraph per line — shown on your About section.",
+                        hint: "One paragraph per line — shown in your Education section.",
                     })}
                     ${fileField({
                         label: "Institution Logo", name: "logo", errorKey: "institution_logo_path",

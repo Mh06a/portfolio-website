@@ -19,10 +19,17 @@ function presentProject(project, index, resolveAssetUrl) {
 }
 
 export function presentProjects(projects, { githubProfileUrl, resolveAssetUrl }) {
+    const items = projects.map((project, index) =>
+        presentProject(project, index, resolveAssetUrl)
+    );
+
+    // the layout leads with one project: the one marked featured, otherwise the first
+    const featured = items.find(item => item.isFeatured) ?? items[0] ?? null;
+
     return {
         githubProfileUrl: toSafeUrl(githubProfileUrl),
-        items: projects.map((project, index) =>
-            presentProject(project, index, resolveAssetUrl)
-        ),
+        items,
+        featured,
+        others: items.filter(item => item !== featured),
     };
 }

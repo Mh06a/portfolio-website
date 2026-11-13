@@ -6,10 +6,11 @@ export function renderFooter(viewModel) {
         <footer class="footer">
             <div class="container">
 
+                <a href="#home" class="footer-wordmark">${BRAND_NAME}</a>
+
                 <div class="footer-content">
 
                     <div class="footer-brand">
-                        <a href="#home">${BRAND_NAME}</a>
                         <span>© ${viewModel.year}</span>
                     </div>
 

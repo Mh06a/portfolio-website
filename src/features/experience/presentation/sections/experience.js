@@ -1,5 +1,6 @@
 import { html } from "../../../../shared/presentation/utils/html.util.js";
 import { renderEmptyNote } from "../../../../shared/presentation/components/empty-note/empty-note.js";
+import { renderSectionAside } from "../../../../shared/presentation/components/section-header/section-header.js";
 
 function renderItem(item) {
     return html`
@@ -14,8 +15,8 @@ function renderItem(item) {
             <div class="experience-card">
                 <span class="experience-type">${item.employmentType}</span>
 
-                <h3>${item.company}</h3>
-                <h4>${item.position}</h4>
+                <h3>${item.position}</h3>
+                <h4>${item.company}</h4>
 
                 <ul>
                     ${item.points.map(point => html`<li>${point}</li>`)}
@@ -29,14 +30,15 @@ function renderItem(item) {
 export function renderExperience(items) {
     return html`
         <section class="section experience" id="experience">
-            <div class="container">
+            <div class="container section-grid">
 
-                <span class="section-label">03 / PROFESSIONAL JOURNEY</span>
-                <h2 class="section-title">Experience</h2>
+                ${renderSectionAside({ index: "03", label: "Professional journey", title: "Experience" })}
 
-                ${items.length === 0
-                    ? renderEmptyNote("No experience has been added yet.")
-                    : html`<div class="experience-list">${items.map(renderItem)}</div>`}
+                <div class="section-main">
+                    ${items.length === 0
+                        ? renderEmptyNote("No experience has been added yet.")
+                        : html`<div class="experience-list">${items.map(renderItem)}</div>`}
+                </div>
 
             </div>
         </section>
