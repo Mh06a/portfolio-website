@@ -1,72 +1,103 @@
-# Portfolio Website
+# Personal Portfolio Website
 
-Vanilla JavaScript (ES modules) + Supabase. No build step.
+A personal portfolio website built to showcase my profile, education, work experience, technical skills, projects, and certificates.
 
-## Design
+The website includes a public portfolio and an admin dashboard that allows me to manage portfolio content dynamically through Supabase.
 
-Editorial dark theme (`#090B10`), electric-lime accent (`#B6F36B`), Space Grotesk / Inter / DM Mono.
-Design tokens live in `src/styles/global.css` and are shared by the public site and the admin dashboard.
-The redesign only touches the presentation layer (views, presenters' view-model shape, CSS); use cases,
-repositories, validators and Supabase access are unchanged.
+## Live Demo
 
-## Run
+🌐 **[Visit My Portfolio Website](https://marvelous-syrniki-dcf482.netlify.app/)**
 
-ES modules are blocked on `file://`, so **do not double-click index.html**. Use a local server:
+## Features
+
+- Responsive personal portfolio website.
+- Admin dashboard for managing portfolio content.
+- Manage profile, education, experience, skills, projects, and certificates.
+- Admin authentication.
+- Image and file uploads using Supabase Storage.
+- Dynamic data management with Supabase.
+
+## Technologies Used
+
+- **Frontend:** HTML, CSS, JavaScript (ES Modules)
+- **Backend & Database:** Supabase
+- **Authentication:** Supabase Auth
+- **Storage:** Supabase Storage
+- **Architecture:** Feature-Based Architecture with Clean Architecture principles
+
+## Project Structure
+
+```text
+portfolio-website/
+│
+├── index.html
+├── admin.html
+│
+└── src/
+    ├── admin/
+    │   ├── app/
+    │   ├── shared/
+    │   └── styles/
+    │
+    ├── app/
+    │   ├── di/
+    │   ├── portfolio.controller.js
+    │   └── portfolio.view.js
+    │
+    ├── config/
+    │   └── supabase/
+    │
+    ├── core/
+    │   ├── constants/
+    │   ├── errors/
+    │   └── utils/
+    │
+    ├── features/
+    │   ├── auth/
+    │   ├── certificates/
+    │   ├── education/
+    │   ├── experience/
+    │   ├── overview/
+    │   ├── profile/
+    │   ├── projects/
+    │   └── skills/
+    │
+    ├── shared/
+    │   ├── data/
+    │   ├── domain/
+    │   └── presentation/
+    │
+    ├── styles/
+    │   └── global.css
+    │
+    └── main.js
+```
+
+## Getting Started
+
+1. Clone the repository:
 
 ```bash
-python3 -m http.server 5173     # → http://localhost:5173
-# or: VS Code "Live Server" extension (no install, no build)
+git clone https://github.com/Mh06a/portfolio-website.git
 ```
 
-No Node.js, npm or bundler is used or required — only static files served as-is.
+2. Open the project folder.
 
-## Database
+3. Configure your Supabase project in:
 
-Run your original schema once, then `database/migrations/001_*.sql` (skill groups, optional project image,
-certificate preview image). Without the migration, saving a skill in a new group or a project without an image fails.
-
-## Admin panel
-
-Open `http://localhost:5173/admin.html` (it is `noindex`; link to it from nowhere public).
-Sign in with a Supabase Auth user whose id exists in the `admins` table.
-
-Screens: Overview · Profile · Education · Experience · Skills (drag to reorder) · Projects (feature / reorder) · Certificates (URL or PDF).
-Everything goes through the same use cases as the public site; 
-
-Required Supabase setup: Row Level Security with admin-only writes, and Storage policies for the
-`portfolio-assets` bucket that allow admins to upload and the public to read.
-`education_subjects` columns are configured in `src/core/constants/database.constants.js`.
-
-## Architecture (dependency direction →)
-
-```
-presentation (views: HTML only)  ←  presenters (data → view model, no DOM)
-        ↑                                   ↑
-   app/portfolio.view.js          app/portfolio.controller.js
-                                            ↓
-                                  domain (models, validators, use cases, repository contracts)
-                                            ↓
-                                  data (repositories → datasources: Supabase)
+```text
+src/config/app.config.js
 ```
 
-| Layer | Allowed | Forbidden |
-|---|---|---|
-| `presentation/sections/*.js` | build HTML from a view model | fetching, Supabase, formatting, business rules |
-| `presentation/*.presenter.js` | format dates, group, number, sanitize URLs | DOM, HTML, Supabase |
-| `domain/` | models, validation, use cases | Supabase, DOM, HTML |
-| `data/` | Supabase access, mapping rows → models | HTML, DOM, UI rules |
-| `app/di/container.js` | the only place that wires concrete classes | — |
+4. Run the website using VS Code Live Server or any local static server.
 
-## Data source
+## Author
 
-**Every piece of content comes from Supabase** (rows and Storage files). Nothing is bundled in the code.
-If a table is empty, its section shows a short "not added yet" note instead of placeholder content.
-Images fall back to a neutral default picture when missing (profile avatar / project image).
+**Mansour Hussain AlYami**
 
-Start by opening `admin.html`, signing in, and filling Profile → Education → Experience → Skills → Projects → Certificates.
+- GitHub: [@Mh06a](https://github.com/Mh06a)
+- LinkedIn: [Mansour Hussain](https://www.linkedin.com/in/mansourhussain/)
 
-## Security notes
-- Only the **publishable** key belongs in the browser. Protect data with Row Level Security
-  (public `select`, admin-only `insert/update/delete`). Never put a `service_role` key in this repo.
-- Every view escapes its data (`shared/presentation/utils/html.util.js`) and links are filtered
-  through `toSafeUrl` (blocks `javascript:`).
+---
+
+If you find this project useful or interesting, please consider giving it a ⭐ on GitHub. Your support is appreciated!
